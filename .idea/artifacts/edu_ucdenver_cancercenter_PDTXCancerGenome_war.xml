@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="edu.ucdenver.cancercenter.PDTXCancerGenome:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="edu.ucdenver.cancercenter.PDTXCancerGenome-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="edu.ucdenver.cancercenter.PDTXCancerGenome:war exploded" />
+    </root>
+  </artifact>
+</component>
