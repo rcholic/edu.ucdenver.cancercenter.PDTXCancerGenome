@@ -1,0 +1,62 @@
+<#import "../front_layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <#if noSample??>
+        <h1>${noSample}</h1>
+        <#else>
+
+        <h1>Sample Name: ${sample.sampleName} in study case: ${sample.getStudyCaseName()}</h1>
+        <h3>Sample Type: ${sample.sampleType}</h3>
+        <h3>Sample Description: ${sample.sampleDescription}</h3>
+        <h3>Sequencing Instrument: ${sample.sequencingInstrument}</h3>
+        <h3>Sequencing Center: ${sample.sequencingCenter}</h3>
+        <h3>Exome-Seq Results</h3>
+
+            <table summary="Summary Here" cellpadding="0" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Gene Symbol</th>
+                    <th>AA Change</th>
+                    <th>Genotype</th>
+                    <th>Polyphen Score</th>
+                    <th>Exonic Function</th>
+                    <th>Chromosome</th>
+                    <th>Start Position</th>
+                    <th>End Position</th>
+                    <th>Number of Ref Reads</th>
+                    <th>Number of Variant Reads</th>
+                    <th>Signaling Pathways</th>
+                </tr>
+                </thead>
+                <tbody>
+                <#list combos as combo>
+                    <tr>
+                        <td>${combo.getGeneSymbol()}</td>
+                        <td>${combo.getAAChange()}</td>
+                        <td><#if (combo.getGenotype() == "unknown")>Not Available<#else>${combo.getGenotype()}</#if></td>
+                        <td>${combo.getPolyphenScore()}</td>
+                        <td>${combo.getExonicFunction()}</td>
+                        <td>${combo.getChromosome()}</td>
+                        <td>${combo.getStartPosition()}</td>
+                        <td>${combo.getEndPosition()}</td>
+                        <td><#if (combo.numRefReads == -1)>Not Available<#else>${combo.numRefReads}</#if></td>
+                        <td><#if (combo.numVariantReads == -1)>Not Available<#else>${combo.numVariantReads}</#if></td>
+                        <td>work in progress</td>
+                    </tr>
+                </#list>
+
+                </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
+
+     </#if>
+
+</@layout.myLayout>

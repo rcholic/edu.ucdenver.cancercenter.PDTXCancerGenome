@@ -1,15 +1,19 @@
 package models.institutions;
 
+import models.cancer.StudyCase;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by tonywang on 6/23/14.
  */
 @Entity
 @Table(name = "pdtx_laboratories")
-public class Laboratory
+public class Laboratory implements Serializable
 {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
@@ -32,6 +36,9 @@ public class Laboratory
     @ManyToOne
     @JoinColumn(name = "institute_id")
     private Institution institution;     /* owner entity is laboratory of this oneTomany relationship */
+
+    @OneToMany(mappedBy = "laboratory")
+    private Set<StudyCase> studyCases = new HashSet<>();
 
     public Laboratory() {}
 
@@ -81,5 +88,13 @@ public class Laboratory
 
     public void setInstitution(Institution institution) {
         this.institution = institution;
+    }
+
+    public Set<StudyCase> getStudyCases() {
+        return studyCases;
+    }
+
+    public void setStudyCases(Set<StudyCase> studyCases) {
+        this.studyCases = studyCases;
     }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class GenomicMethods
 {
-    public enum method {
+    private enum method {
         RNA_SEQUENCING,
         EXOME_SEQUENCING,
         WHOLE_GENOME_SEQUENCING,

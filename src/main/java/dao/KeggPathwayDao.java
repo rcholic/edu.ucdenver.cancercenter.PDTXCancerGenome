@@ -37,18 +37,24 @@ public class KeggPathwayDao
     }
 
     @Transactional
-    public void savePathwayWithHumanGenes(KeggPathway keggPathway, Set<HumanGene> genes)
+    public void savePathwayWithHumanGenes(KeggPathway keggPathway)
     {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.saveOrUpdate(keggPathway);
+        session.save(keggPathway);
 
+        /*
         for (HumanGene gene : genes)
         {
-            session.save(gene);
+            HumanGene g = humanGeneDao.getGenesBySymbol(gene.getGeneSymbol());
+            if (g == null)
+                session.save(gene);
+            else
+                g.getKeggPathways().add(keggPathway);
         }
+        */
 
-        tx.commit();;
+        tx.commit();
         session.close();
     }
 }

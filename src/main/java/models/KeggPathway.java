@@ -3,6 +3,7 @@ package models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pdtx_keggpathway")
-public class KeggPathway
+public class KeggPathway implements Serializable, Comparable<KeggPathway>
 {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
@@ -34,8 +35,8 @@ public class KeggPathway
 
     @ManyToMany(cascade = {CascadeType.ALL})    /* owner entity of this manytomany relationship */
     @JoinTable(name = "pdtx_kegg_pathId_humangeneId",
-                joinColumns = {@JoinColumn(name = "pathway_id")},
-                inverseJoinColumns = {@JoinColumn(name = "humangene_id")})
+            joinColumns = {@JoinColumn(name = "pathway_id")},
+            inverseJoinColumns = {@JoinColumn(name = "humangene_id")})
     private Set<HumanGene> humanGenes = new HashSet<HumanGene>();
 
     public KeggPathway() {}
@@ -86,5 +87,41 @@ public class KeggPathway
 
     public void setHumanGenes(Set<HumanGene> humanGenes) {
         this.humanGenes = humanGenes;
+    }
+
+
+    @Override
+    public int compareTo(KeggPathway that)
+    {
+        return this.keggPathHSASymbol.compareTo(that.keggPathHSASymbol);
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof KeggPathway))
+            return false;
+
+        if (obj == this)
+            return true;
+
+        KeggPathway that = (KeggPathway) obj;
+
+        return that.keggPathHSASymbol.equals(this.keggPathHSASymbol);
+    }
+
+    @Override
+    public int hashCode() { return this.keggPathHSASymbol.hashCode(); }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.KeggPathwayFullName)
+                .append(", ")
+                .append(this.keggPathHSASymbol);
+
+        return sb.toString();
+
     }
 }

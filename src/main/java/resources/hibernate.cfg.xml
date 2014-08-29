@@ -16,13 +16,23 @@
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <!--property name="hbm2ddl.auto">validate</property-->
+
 
 
 
         <mapping class="models.KeggPathway" />
         <mapping class="models.HumanGene" />
+        <mapping class="models.cancer.CancerType" />
+        <mapping class="models.cancer.Sample" />
+        <mapping class="models.cancer.StudyCase" />
+
+        <mapping class="models.institutions.Institution" />
+        <mapping class="models.institutions.Laboratory" />
+
+        <mapping class="models.results.DNASeqResult" />
+        <mapping class="models.results.DNASeqResultSample" />
 
     </session-factory>
 </hibernate-configuration>

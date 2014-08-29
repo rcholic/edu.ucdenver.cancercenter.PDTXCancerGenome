@@ -1,8 +1,10 @@
 package models.cancer;
 
+import models.institutions.Laboratory;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "pdtx_study_cases")
-public class StudyCase
+public class StudyCase implements Serializable, Comparable<StudyCase>
 {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
@@ -29,12 +31,16 @@ public class StudyCase
     @Column(name = "disease_name")
     private String diseaseName;
 
-    @Column(name = "study_description")
+    @Column(name = "study_description", columnDefinition = "mediumtext")
     private String studyDescription;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "study_start_date")
     private Date studyStartDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "study_end_date")
+    private Date studyEndDate;
 
     @Column(name = "public_study")
     private boolean publicStudy;
@@ -44,6 +50,10 @@ public class StudyCase
 
     @OneToMany(mappedBy = "studyCase")
     private Set<Sample> samples = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "lab_id")
+    private Laboratory laboratory;
 
     public StudyCase() {}
 
@@ -118,4 +128,53 @@ public class StudyCase
     public void setSamples(Set<Sample> samples) {
         this.samples = samples;
     }
+
+    public Date getStudyEndDate() {
+        return studyEndDate;
+    }
+
+    public void setStudyEndDate(Date studyEndDate) {
+        this.studyEndDate = studyEndDate;
+    }
+
+    public Laboratory getLaboratory() {
+        return laboratory;
+    }
+
+    public void setLaboratory(Laboratory laboratory) {
+        this.laboratory = laboratory;
+    }
+
+    public String getLabPI()
+    {
+        return this.laboratory.getLabPIName();
+    }
+
+    @Override
+    public int compareTo(StudyCase that)
+    {
+        if (this.studyId > that.studyId)
+            return +1;
+        if (this.studyId < that.studyId)
+            return -1;
+
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof StudyCase))
+            return false;
+
+        if (obj == this)
+            return true;
+
+        StudyCase that = (StudyCase) obj;
+
+        return that.studyName.equals(this.studyName);
+    }
+
+    @Override
+    public int hashCode() { return this.studyName.hashCode(); }
 }

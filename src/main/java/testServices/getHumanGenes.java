@@ -92,7 +92,7 @@ public class getHumanGenes
 
                 currentPathway.setHumanGenes(genes);
 
-                keggPathwayDao.savePathwayWithHumanGenes(currentPathway, genes);
+                keggPathwayDao.savePathwayWithHumanGenes(currentPathway);
             }
 
         } finally {

@@ -1,8 +1,12 @@
 package models;
 
+import models.cancer.Sample;
+import models.results.DNASeqResult;
+import models.results.DNASeqResultSample;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +14,8 @@ import java.util.Set;
  * Created by tonywang on 6/23/14.
  */
 @Entity
-@Table(name = "pdtx_humangenes")
-public class HumanGene
+@Table(name = "pdtx_humangeneshugo")
+public class HumanGene implements Serializable, Comparable<HumanGene>
 {
     @Id
     @GenericGenerator(name = "generator", strategy = "increment")
@@ -19,7 +23,7 @@ public class HumanGene
     @Column(name = "humangene_id", unique = true, nullable = false)
     private int geneId;
 
-    @Column(name = "gene_symbol", nullable = false)
+    @Column(name = "gene_symbol", nullable = false, unique = true)
     private String geneSymbol;
 
     @Column(name = "gene_fullname")
@@ -48,6 +52,9 @@ public class HumanGene
 
     @ManyToMany(mappedBy = "humanGenes")
     private Set<KeggPathway> keggPathways = new HashSet<KeggPathway>();
+
+    @OneToMany(mappedBy = "humanGene")
+    private Set<DNASeqResultSample> dnaSeqResultSampleSet = new HashSet<DNASeqResultSample>();
 
     public HumanGene() {}
 
@@ -154,4 +161,41 @@ public class HumanGene
     public void setGeneFamilyDescription(String geneFamilyDescription) {
         this.geneFamilyDescription = geneFamilyDescription;
     }
+
+    public Set<DNASeqResultSample> getDnaSeqResultSampleSet() {
+        return dnaSeqResultSampleSet;
+    }
+
+    public void setDnaSeqResultSampleSet(Set<DNASeqResultSample> dnaSeqResultSampleSet) {
+        this.dnaSeqResultSampleSet = dnaSeqResultSampleSet;
+    }
+
+    @Override
+    public int compareTo(HumanGene that)
+    {
+        if (this.geneId > that.geneId)
+            return +1;
+
+        if (this.geneId < that.geneId)
+            return -1;
+
+        return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof HumanGene))
+            return false;
+
+        if (obj == this)
+            return true;
+
+        HumanGene that = (HumanGene) obj;
+
+        return that.geneId == this.geneId && that.geneSymbol.equals(this.geneSymbol);
+    }
+
+    @Override
+    public int hashCode() { return this.geneSymbol.hashCode(); }
 }

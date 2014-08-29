@@ -10,33 +10,33 @@ import java.util.Map;
  */
 public final class InstitutionType
 {
-    public enum instituteType {
+    public static enum instituteType {
         UNIVERSITY,
         RESEARCH_INSTITUTE,
         HOSPITAL,
         COMMERCIAL_CORPORATE;
     }
 
-    private static Map<Integer, String> integerStringMap;
-    private static Map<String, Integer> stringIntegerMap;
-    private static List<String> types;
+    private static Map<Integer, instituteType> integerStringMap;
+    private static Map<instituteType, Integer> stringIntegerMap;
+    private static List<instituteType> types;
 
     public InstitutionType() {
 
         integerStringMap = new HashMap<>();
         stringIntegerMap = new HashMap<>();
-        types = new ArrayList<String>();
+        types = new ArrayList<instituteType>();
         int index = 0;
 
         for (instituteType type : instituteType.values())
         {
-            integerStringMap.put(index, type.toString());
-            stringIntegerMap.put(type.toString(), index++);
-            types.add(type.toString());
+            integerStringMap.put(index, type);
+            stringIntegerMap.put(type, index++);
+            types.add(type);
         }
     }
 
-    public String convertIdToInstituteTypeName(int id)
+    public static instituteType convertIdToInstituteTypeName(int id)
     {
         if (integerStringMap.containsKey(id))
         {
@@ -46,7 +46,7 @@ public final class InstitutionType
         return null;
     }
 
-    public int convertTypeNameToId(String type)
+    public static int convertTypeNameToId(instituteType type)
     {
         if (stringIntegerMap.containsKey(type))
             return stringIntegerMap.get(type);
@@ -55,7 +55,7 @@ public final class InstitutionType
 
     }
 
-    public List<String> getAllTypes()
+    public static List getAllTypes()
     {
          return types;
     }

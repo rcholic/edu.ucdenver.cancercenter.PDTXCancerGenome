@@ -17,6 +17,7 @@
 package conf;
 
 
+import controllers.FrontEndController;
 import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
@@ -40,7 +41,17 @@ public class Routes implements ApplicationRoutes {
         ///////////////////////////////////////////////////////////////////////
         // Index / Catchall shows index page
         ///////////////////////////////////////////////////////////////////////
-        router.GET().route("/.*").with(ApplicationController.class, "index");
+      //  router.GET().route("/.*").with(ApplicationController.class, "index");
+        router.GET().route("/").with(FrontEndController.class, "index");
+        router.POST().route("/search").with(FrontEndController.class, "searchResults");
+        router.GET().route("/studyDetails/{studyId}").with(FrontEndController.class, "studyDetails");
+        router.GET().route("/sampleDetails/{sampleId}").with(FrontEndController.class, "sampleDetails");
+
+
+        router.GET().route("/sampleList").with(FrontEndController.class, "sampleList");
+        router.GET().route("/studyList").with(FrontEndController.class, "studyCaseList");
+
+        router.GET().route("/getIP").with(FrontEndController.class, "getIP");
     }
 
 }
