@@ -50,9 +50,10 @@ public class TCGAStudySamples
         }
 
         StudyCase studyCase = studyCaseDao.getStudyCaseByName(studyName);
-        if (studyCase == null) return;
+        Sample curSample = sampleDao.getSampleByName(sampleName);
 
-   //     List<Sample> samplesInThisStudy = new ArrayList<>();
+        /* if either studyCase or curSample is null, return */
+        if (studyCase == null || curSample == null) return;
 
         ICsvListReader csvReader = null;
         int successCount = 0;
@@ -108,7 +109,7 @@ public class TCGAStudySamples
                 comboObject.setHumanGene(gene);
                 comboObject.setDnaSeqResult(result);
 
-                String[] namesPart = studyName.split("-");
+/*                String[] namesPart = studyName.split("-");
                 List<Sample> currentSamples = sampleDao.getSamplesByName(sampleName);
                 Sample workingSample = null;
                 for (Sample s : currentSamples)
@@ -128,19 +129,20 @@ public class TCGAStudySamples
               //      return;
                     continue;
                 }
-
+*/
                 successCount++;
 
-                System.out.println("currentSample name: " + workingSample.getSampleName());
+//                System.out.println("currentSample name: " + curSample.getSampleName());
 
-                comboObject.setSample(workingSample);
+                comboObject.setSample(curSample);
                 comboObject.setNumRefReads(-1);
                 comboObject.setNumVariantReads(-1);
 
                 comboObject.setGenotype("---");
                 result.getDnaSeqResultSamples().add(comboObject);
 
-//                dnaSeqResultDao.saveResult(result);
+                dnaSeqResultDao.saveResult(result);
+                System.out.println("persisted this result: " + result.getAminoAcidSubstition());
             }
 
 

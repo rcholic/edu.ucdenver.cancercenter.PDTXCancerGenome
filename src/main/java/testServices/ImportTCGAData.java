@@ -1,7 +1,9 @@
 package testServices;
 
 import dao.SampleDao;
+import dao.StudyCaseDao;
 import models.cancer.Sample;
+import models.cancer.StudyCase;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +15,7 @@ import java.io.IOException;
 public class ImportTCGAData
 {
     private final static SampleDao sampleDao = new SampleDao();
+    private final static StudyCaseDao studyCaseDao = new StudyCaseDao();
 
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
@@ -34,13 +37,19 @@ public class ImportTCGAData
                         String studyName = fileNames[1] + "-" + fileNames[2];
                         String sampleName = studyName + "-" + fileNames[3];
 
-                        System.out.println("studyName=" + studyName + ", sampleName: " + sampleName);
-//                        System.out.println("file path: " + file.toString());
+                    //    System.out.println("studyName=" + studyName + ", sampleName: " + sampleName);
 
- //                       Sample curSample = sampleDao.getSampleByName(sampleName);
- //                       System.out.println("curSample is: " + curSample.getSampleId());
+                        StudyCase studyCase = studyCaseDao.getStudyCaseByName(studyName);
+                        if (studyCase == null) {
+                            continue;
+                        }
 
-                //        TCGAStudySamples.TCGAAnnovarCSVReader(file.toString(), studyName, sampleName);
+                        Sample curSample = sampleDao.getSampleByName(sampleName);
+                        if (curSample == null) {
+                            continue;
+                        }
+
+                        TCGAStudySamples.TCGAAnnovarCSVReader(file.toString(), studyCase.getStudyName(), curSample.getSampleName());
 
                     }
                 }
