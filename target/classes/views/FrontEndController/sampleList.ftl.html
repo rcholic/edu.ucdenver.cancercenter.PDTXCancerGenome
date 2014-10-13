@@ -1,0 +1,25 @@
+<#import "../front_layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <#if hasNoSample??>
+        <h1>${hasNoSample}</h1>
+        <#else>
+            <ul>
+                <#list samples as sample>
+                    <li>
+                        <h4><a href="/sampleDetails/${sample.sampleId}">${sample.sampleName}</a></h4>
+                    </li>
+
+                </#list>
+
+            </ul>
+
+
+
+
+    </#if>
+
+
+</@layout.myLayout>
+
+

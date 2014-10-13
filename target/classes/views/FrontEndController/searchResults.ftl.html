@@ -1,0 +1,77 @@
+<#import "../front_layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <#if nosamples??>
+        <h1>${nosamples}</h1>
+    <#else>
+
+    Found ${num_samples} samples and ${num_cases} study cases with the keyword <h2>${keywords}</h2><br />
+    <h1>Search Results: </h1>
+        <table summary="Summary Here" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+                <th>Study Case</th>
+                <th>Sample Name</th>
+                <th>Gene Symbol</th>
+                <th>AA Change</th>
+                <th>Genotype</th>
+                <th>Polyphen Score</th>
+                <th>Exonic Function</th>
+                <th>Chromosome</th>
+                <th>Start Position</th>
+                <th>End Position</th>
+                <th>Number of Ref Reads</th>
+                <th>Number of Variant Reads</th>
+                <th>Signaling Pathways</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                <#list resultSamples as resultSample>
+                    <tr class="light">
+                    <td><a href="/studyDetails/${resultSample.getStudyId()}">${resultSample.getStudyCaseName()}</a></td>
+                    <td><a href="/sampleDetails/${resultSample.getSampleId()}">${resultSample.getSampleName()}</a></td>
+                    <td>${resultSample.getGeneSymbol()}</td>
+                    <td>${resultSample.getAAChange()}</td>
+                    <td><#if (resultSample.genotype=="unknown")>Not Available<#else>${resultSample.genotype}</#if></td>
+                    <td>${resultSample.getPolyphenScore()}</td>
+                    <td>${resultSample.getExonicFunction()}</td>
+                    <td>${resultSample.getChromosome()}</td>
+                    <td>${resultSample.getStartPosition()}</td>
+                    <td>${resultSample.getEndPosition()}</td>
+                    <td><#if (resultSample.numRefReads == -1)>Not Available<#else>${resultSample.numRefReads}</#if></td>
+                    <td><#if (resultSample.numVariantReads == -1)>Not Available<#else>${resultSample.numVariantReads}</#if></td>
+                    <td>
+                        <a href="#">View Pathway(s)</a>
+                    </td>
+                    </tr>
+                </#list>
+            </tbody>
+
+        </table>
+
+
+
+    <h1>Click the Study Cases for More Information: </h1>
+        <ul>
+        <#list studyCases as studyCase>
+            <li><h2><a href="/studyDetails/${studyCase.studyId}">${studyCase.studyName}</a></h2></li>
+        </#list>
+        </ul>
+
+
+     <h1>List of Samples</h1>
+            <ul>
+                <#list samples as sample>
+                    <li>
+                        <h3><a href="/sampleDetails/${sample.sampleId}">${sample.sampleName}</a></h3>
+                    </li>
+                </#list>
+            </ul>
+</#if>
+
+
+
+
+
+</@layout.myLayout>

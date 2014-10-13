@@ -1,0 +1,50 @@
+<#import "../front_layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <div>
+        <#assign count=0>
+            <#list cancerTypes as cancerType>
+                <label><input type="checkbox" name="checkbox" value="${cancerType.cancerTypeId}">${cancerType.name}</label>
+                <#assign count = count + 1>
+                    <#if (count == 5)><br />
+                        <#assign count = 0>
+                    </#if>
+            </#list>
+            <h1>hello!</h1>
+    </div>
+
+    <#if noStudyCase??>
+        <h1>${noStudyCase}</h1>
+        <#else>
+
+       <h1>${studycase.studyName}</h1>
+       <h3>Disease Name: ${studycase.diseaseName}</h3>
+       <h3>Study Description: ${studycase.studyDescription}</h3>
+       <h3>Laboratory PI's Name: ${studycase.getLabPI()}</h3>
+       <h3>Number of Samples: ${studycase.numSamples}</h3>
+       <h3>List of Samples: </h3>
+            <#if (combosSize == 0)>
+                <h3>No Results Available for This Sample</h3>
+            <#else>
+
+            <ul>
+                <#list samples as sample>
+                    <li>
+                        <h4><a href="/sampleDetails/${sample.sampleId}">${sample.sampleName}</a></h4>
+                    </li>
+
+                </#list>
+
+             </ul>
+
+            </#if>
+
+
+
+
+    </#if>
+
+
+        </@layout.myLayout>
+
+

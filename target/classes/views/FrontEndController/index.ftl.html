@@ -1,0 +1,16 @@
+<#import "../front_layout/defaultLayout.ftl.html" as layout>
+    <@layout.myLayout "Home page">
+
+    <div>
+    <#assign count=0>
+        <#list cancerTypes as cancerType>
+            <label><input type="checkbox" name="checkbox" value="${cancerType.cancerTypeId}">${cancerType.name}</label>
+            <#assign count = count + 1>
+                <#if (count == 5)><br />
+                    <#assign count = 0>
+                </#if>
+        </#list>
+        <h1>hello!</h1>
+        </div>
+
+    </@layout.myLayout>

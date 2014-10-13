@@ -1,0 +1,1 @@
+HGNC ID	Approved Symbol	Approved Name	Status	Previous Symbols	Synonyms	Chromosome	Accession Numbers	Entrez Gene ID	Ensembl Gene ID	Pubmed IDs	RefSeq IDs	Gene family description	Record Type	UniProt ID(supplied by UniProt)
