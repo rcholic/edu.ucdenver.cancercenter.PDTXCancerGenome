@@ -33,6 +33,7 @@
 
         <mapping class="models.results.DNASeqResult" />
         <mapping class="models.results.DNASeqResultSample" />
+        <mapping class="models.User" />
 
     </session-factory>
 </hibernate-configuration>
