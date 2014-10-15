@@ -41,21 +41,22 @@ public class ImportSamplesData
     private static final int ADFIELD = 2;  // starting from 1
 
     /* path to the CSV file output by ANNOVAR (use the file */
-    private static final String fileName = "/Users/tonywang/Dropbox/java/Ninja/edu.ucdenver.cancercenter.PDTXCancerGenome/070_SNPs_filtered.csv";
-    private static final String caseName = "";
+    private static final String fileName = "/Users/tonywang/Dropbox/java/Ninja/edu.ucdenver.cancercenter.PDTXCancerGenome/070_SNPs_filtered.csv";  // REQUIRED!!
+    private static final String caseName = "";   // REQUIRED!!
 
     public static void main(String[] args) throws IOException
     {
         StudyCase studyCase = studyCaseDao.getStudyCaseByName(caseName);
         List<Sample> samplesInThisStudy = new ArrayList<>(); // sampleDao.getSamplesByStudyCase(studyCase);
 
-//              String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.indels.filtered.selectedIndels/070_Indels_filtered.csv";
-//              String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN076_reSeq_batch20140505/annovar/20140505_merged_076_repeated_Agilent_bed_covered.snps.filtered.selected/076_snpsJavaFiltered.csv";
-//              String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN076_reSeq_batch20140505/annovar/20140505_merged_076_repeated_Agilent_bed_covered.indels.filtered.selected/076_indelsJavaFiltered.csv";
+        /*
+        String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.indels.filtered.selectedIndels/070_Indels_filtered.csv";
+        String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN076_reSeq_batch20140505/annovar/20140505_merged_076_repeated_Agilent_bed_covered.snps.filtered.selected/076_snpsJavaFiltered.csv";
+        String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN076_reSeq_batch20140505/annovar/20140505_merged_076_repeated_Agilent_bed_covered.indels.filtered.selected/076_indelsJavaFiltered.csv";
 
-        /** new raw CSV file **/
-        //String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.indels.filtered.selectedIndels/exome.indels.filtered.selectedIndels.exome_summary.csv";
-        //String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.snps.filtered.selectedSNPs/exome.snps.filtered.selectedSNPs.exome_summary.csv";
+        String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.indels.filtered.selectedIndels/exome.indels.filtered.selectedIndels.exome_summary.csv";
+        String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.snps.filtered.selectedSNPs/exome.snps.filtered.selectedSNPs.exome_summary.csv";
+        */
 
 
         File inputFile = new File(fileName);
