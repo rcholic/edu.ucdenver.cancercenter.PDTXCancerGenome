@@ -47,7 +47,15 @@ public class ImportSamplesData
     public static void main(String[] args) throws IOException
     {
         StudyCase studyCase = studyCaseDao.getStudyCaseByName(caseName);
+
+        if (studyCase == null)
+        {
+            System.out.println("study case not found!");
+            System.exit(1);
+        }
+
         List<Sample> samplesInThisStudy = new ArrayList<>(); // sampleDao.getSamplesByStudyCase(studyCase);
+
 
         /*
         String fileName = "/Users/tonywang/Desktop/Data/Jimeno/Steve/CUHN070_annovar_withAgilent_20131216/exome.indels.filtered.selectedIndels/070_Indels_filtered.csv";
